@@ -8,6 +8,11 @@
 - Shadcn UI
 - React Router
 
+## Code
+- ESLint
+- Prettier
+- use proper code documentation
+- do not 'think out loud' in the code
 
 ## Implementation Requirements
 - Use a proper OOP approach
