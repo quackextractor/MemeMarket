@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import LoginPage from './pages/LoginPage';
+import DashboardPage from './pages/DashboardPage';
+import PrivateRoute from './components/PrivateRoute';
+import './App.css';
 
+/**
+ * App Component
+ * The root component of the application.
+ * 
+ * Educational Note:
+ * We wrap the entire application in `AuthProvider` so that any component
+ * can access the authentication state.
+ * We use `BrowserRouter` (aliased as Router) to enable client-side routing.
+ */
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {/* Public Route */}
+          <Route path="/login" element={<LoginPage />} />
+
+          {/* Protected Routes */}
+          {/* 
+            Educational Note:
+            We wrap protected routes inside the PrivateRoute component.
+            If the user is not authenticated, PrivateRoute will redirect them to /login.
+          */}
+          <Route element={<PrivateRoute />}>
+            <Route path="/dashboard" element={<DashboardPage />} />
+            {/* Add other protected routes here later (e.g., /memes, /cart) */}
+          </Route>
+
+          {/* Default Redirect */}
+          {/* Redirect root URL to dashboard (which will then redirect to login if needed) */}
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+
+          {/* Catch-all for 404 - For now redirect to dashboard */}
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;

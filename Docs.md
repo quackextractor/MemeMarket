@@ -3,7 +3,7 @@
 ## Tech Stack
 
 - Vite + React
-- TypeScript OOP
+- TypeScript
 - Tailwind CSS
 - Shadcn UI
 - React Router
