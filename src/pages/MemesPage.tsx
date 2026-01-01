@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useMemes, Meme } from '../hooks/useMemes';
 import { MemeCard } from '../components/MemeCard';
 import { Input } from '../components/ui/input';
@@ -18,6 +19,8 @@ export function MemesPage() {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [sortBy, setSortBy] = useState('name-asc');
+
+    const navigate = useNavigate();
 
     // Infinite Scroll State
     const [page, setPage] = useState(1);
@@ -86,9 +89,14 @@ export function MemesPage() {
 
     return (
         <div className="container mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-purple-600 to-pink-600 text-transparent bg-clip-text">
-                Meme Gallery
-            </h1>
+            <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+                <h1 className="text-3xl font-bold text-center md:text-left bg-gradient-to-r from-purple-600 to-pink-600 text-transparent bg-clip-text">
+                    Meme Gallery
+                </h1>
+                <Button onClick={() => navigate('/dashboard')} variant="outline">
+                    Dashboard
+                </Button>
+            </div>
 
             {/* Filters */}
             <div className="flex flex-col md:flex-row gap-4 mb-8 justify-between items-center bg-card p-4 rounded-lg shadow-sm border">

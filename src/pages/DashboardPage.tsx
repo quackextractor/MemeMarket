@@ -1,14 +1,22 @@
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useMemes } from '../hooks/useMemes';
+import { MemeCard } from '../components/MemeCard';
 
 const DashboardPage = () => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
     const { memes, loading, error } = useMemes();
+
+    const mostPopularMeme = useMemo(() => {
+        if (!memes.length) return null;
+        // Sort by rating descending
+        return [...memes].sort((a, b) => b.rating - a.rating)[0];
+    }, [memes]);
 
     return (
         <div className="flex min-h-screen items-start justify-center bg-gray-100 p-8">
@@ -78,6 +86,15 @@ const DashboardPage = () => {
                                             </div>
                                         </CardContent>
                                     </Card>
+                                </div>
+                            )}
+
+                            {!loading && !error && mostPopularMeme && (
+                                <div className="mt-8 flex flex-col items-center">
+                                    <h3 className="text-xl font-semibold mb-4 text-center">Most Popular Meme</h3>
+                                    <div className="max-w-sm w-full">
+                                        <MemeCard meme={mostPopularMeme} />
+                                    </div>
                                 </div>
                             )}
                         </div>
