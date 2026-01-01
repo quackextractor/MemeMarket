@@ -57,7 +57,7 @@ const LoginPage = () => {
           <ModeToggle />
         </div>
         <CardHeader>
-          <CardTitle className="text-center text-2xl font-bold">Meme Market Login</CardTitle>
+          <CardTitle className="text-center text-2xl font-bold">MemesPro Login</CardTitle>
           <CardDescription className="text-center">
             Enter your credentials to access the dashboard.
           </CardDescription>
