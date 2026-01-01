@@ -6,6 +6,7 @@ import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import { MemesPage } from './pages/MemesPage';
 import MemeDetailPage from './pages/MemeDetailPage';
+import NotFoundPage from './pages/NotFoundPage';
 import CartPage from './pages/CartPage';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
@@ -46,8 +47,8 @@ function App() {
               {/* Redirect root URL to dashboard (which will then redirect to login if needed) */}
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
-              {/* Catch-all for 404 - For now redirect to dashboard */}
-              <Route path="*" element={<Navigate to="/dashboard" replace />} />
+              {/* Catch-all for 404 */}
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </Router>
         </CartProvider>
