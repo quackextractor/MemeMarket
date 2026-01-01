@@ -66,13 +66,20 @@ export default function MemeDetailPage() {
 
     return (
         <div className="container mx-auto px-4 py-8">
-            <Button
-                variant="ghost"
-                className="mb-6"
-                onClick={() => navigate('/memes')}
-            >
-                <ArrowLeft className="mr-2 h-4 w-4" /> Back to Gallery
-            </Button>
+            <div className="flex justify-between items-center mb-6">
+                <Button
+                    variant="ghost"
+                    onClick={() => navigate('/memes')}
+                >
+                    <ArrowLeft className="mr-2 h-4 w-4" /> Back to Gallery
+                </Button>
+                <Button
+                    variant="outline"
+                    onClick={() => navigate('/cart')}
+                >
+                    <ShoppingCart className="mr-2 h-4 w-4" /> Go to Cart
+                </Button>
+            </div>
 
             <div className="grid md:grid-cols-2 gap-8 mb-16">
                 {/* Image Section */}
