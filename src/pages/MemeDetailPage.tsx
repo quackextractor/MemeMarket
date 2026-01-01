@@ -98,7 +98,7 @@ export default function MemeDetailPage() {
                 {/* Details Section */}
                 <div className="space-y-6">
                     <div>
-                        <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 text-transparent bg-clip-text mb-2">
+                        <h1 className="text-3xl font-bold mb-2">
                             {meme.name}
                         </h1>
                         <div className="flex items-center gap-4 text-muted-foreground">

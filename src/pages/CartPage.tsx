@@ -22,7 +22,7 @@ const CartPage = () => {
     const totalPrice = getTotalPrice();
 
     return (
-        <div className="flex min-h-screen items-start justify-center bg-gray-100 p-8">
+        <div className="flex min-h-screen items-start justify-center p-8">
             <Card className="w-full max-w-4xl">
                 <CardHeader>
                     <div className="flex items-center justify-between">

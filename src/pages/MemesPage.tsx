@@ -100,7 +100,7 @@ export function MemesPage() {
     return (
         <div className="container mx-auto px-4 py-8">
             <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-                <h1 className="text-3xl font-bold text-center md:text-left bg-gradient-to-r from-purple-600 to-pink-600 text-transparent bg-clip-text">
+                <h1 className="text-3xl font-bold text-center md:text-left">
                     Meme Gallery
                 </h1>
                 <div className="flex gap-2">
