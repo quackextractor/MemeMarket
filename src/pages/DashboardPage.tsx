@@ -7,6 +7,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useMemes } from '../hooks/useMemes';
 import { useCart } from '../hooks/useCart';
 import { MemeCard } from '../components/MemeCard';
+import { ModeToggle } from '@/components/ModeToggle';
 
 const DashboardPage = () => {
     const { user, logout } = useAuth();
@@ -18,6 +19,18 @@ const DashboardPage = () => {
         if (!memes.length) return null;
         // Sort by rating descending
         return [...memes].sort((a, b) => b.rating - a.rating)[0];
+    }, [memes]);
+
+    const memeOfTheDay = useMemo(() => {
+        if (!memes.length) return null;
+        // Deterministic random based on date
+        const today = new Date().toDateString();
+        let hash = 0;
+        for (let i = 0; i < today.length; i++) {
+            hash = today.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        const index = Math.abs(hash) % memes.length;
+        return memes[index];
     }, [memes]);
 
     return (
@@ -33,6 +46,7 @@ const DashboardPage = () => {
                             <Button variant="destructive" onClick={logout}>
                                 Logout
                             </Button>
+                            <ModeToggle />
                         </div>
                     </div>
                 </CardHeader>
@@ -105,11 +119,21 @@ const DashboardPage = () => {
                             )}
 
                             {!loading && !error && mostPopularMeme && (
-                                <div className="mt-8 flex flex-col items-center">
-                                    <h3 className="text-xl font-semibold mb-4 text-center">Most Popular Meme</h3>
-                                    <div className="max-w-sm w-full">
-                                        <MemeCard meme={mostPopularMeme} />
+                                <div className="mt-8 grid md:grid-cols-2 gap-8">
+                                    <div className="flex flex-col items-center">
+                                        <h3 className="text-xl font-semibold mb-4 text-center">Most Popular Meme</h3>
+                                        <div className="max-w-sm w-full">
+                                            <MemeCard meme={mostPopularMeme} />
+                                        </div>
                                     </div>
+                                    {memeOfTheDay && (
+                                        <div className="flex flex-col items-center">
+                                            <h3 className="text-xl font-semibold mb-4 text-center">Meme of the Day</h3>
+                                            <div className="max-w-sm w-full">
+                                                <MemeCard meme={memeOfTheDay} />
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             )}
                         </div>

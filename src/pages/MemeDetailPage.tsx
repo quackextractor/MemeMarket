@@ -6,6 +6,7 @@ import { MemeCard } from '../components/MemeCard';
 import { useCart } from '../hooks/useCart';
 import { Skeleton } from '../components/ui/skeleton';
 import { ArrowLeft, ShoppingCart, Star } from 'lucide-react';
+import { ModeToggle } from '@/components/ModeToggle';
 
 export default function MemeDetailPage() {
     const { id } = useParams<{ id: string }>();
@@ -79,6 +80,9 @@ export default function MemeDetailPage() {
                 >
                     <ShoppingCart className="mr-2 h-4 w-4" /> Go to Cart
                 </Button>
+                <div className="ml-2">
+                    <ModeToggle />
+                </div>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8 mb-16">
@@ -146,16 +150,18 @@ export default function MemeDetailPage() {
             </div>
 
             {/* Related Memes */}
-            {relatedMemes.length > 0 && (
-                <div className="space-y-6">
-                    <h2 className="text-2xl font-bold">More {meme.category} Memes</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                        {relatedMemes.map(related => (
-                            <MemeCard key={related.id} meme={related} />
-                        ))}
+            {
+                relatedMemes.length > 0 && (
+                    <div className="space-y-6">
+                        <h2 className="text-2xl font-bold">More {meme.category} Memes</h2>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                            {relatedMemes.map(related => (
+                                <MemeCard key={related.id} meme={related} />
+                            ))}
+                        </div>
                     </div>
-                </div>
-            )}
-        </div>
+                )
+            }
+        </div >
     );
 }

@@ -8,12 +8,17 @@ import { Input } from '../components/ui/input';
 import { Button } from '../components/ui/button';
 import { Skeleton } from '../components/ui/skeleton';
 import { Loader2, Search } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ModeToggle } from '@/components/ModeToggle';
 
 const CATEGORIES = ["All", "animals", "celebrities", "gaming", "school", "random"];
 const SORT_OPTIONS = [
     { label: "Name (A-Z)", value: "name-asc" },
     { label: "Rating (High-Low)", value: "rating-desc" },
+    { label: "Rating (High-Low)", value: "rating-desc" },
     { label: "Price (Low-High)", value: "price-asc" },
+    { label: "Image Size (Small-Large)", value: "size-asc" },
+    { label: "Image Size (Large-Small)", value: "size-desc" },
 ];
 
 export function MemesPage() {
@@ -45,7 +50,10 @@ export function MemesPage() {
             switch (sortBy) {
                 case 'name-asc': return a.name.localeCompare(b.name);
                 case 'rating-desc': return b.rating - a.rating;
+                case 'rating-desc': return b.rating - a.rating;
                 case 'price-asc': return a.price - b.price;
+                case 'size-asc': return (a.width * a.height) - (b.width * b.height);
+                case 'size-desc': return (b.width * b.height) - (a.width * a.height);
                 default: return 0;
             }
         });
@@ -105,6 +113,7 @@ export function MemesPage() {
                     <Button variant="destructive" onClick={useAuth().logout}>
                         Logout
                     </Button>
+                    <ModeToggle />
                 </div>
             </div>
 
@@ -161,9 +170,19 @@ export function MemesPage() {
                 <div className="text-center py-12 text-muted-foreground">No memes found matching your criteria.</div>
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    {visibleMemes.map(meme => (
-                        <MemeCard key={meme.id} meme={meme} />
-                    ))}
+                    <AnimatePresence>
+                        {visibleMemes.map((meme, index) => (
+                            <motion.div
+                                key={meme.id}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 0.9 }}
+                                transition={{ duration: 0.3, delay: index * 0.05 }}
+                            >
+                                <MemeCard meme={meme} />
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
                 </div>
             )}
 

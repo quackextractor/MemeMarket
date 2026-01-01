@@ -1,5 +1,6 @@
-import { createContext, useState, useEffect, ReactNode, useMemo } from 'react';
+import { createContext, ReactNode, useMemo } from 'react';
 import { Meme } from '../hooks/useMemes';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 export interface CartItem extends Meme {
     quantity: number;
@@ -18,14 +19,7 @@ interface CartContextType {
 export const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-    const [cartItems, setCartItems] = useState<CartItem[]>(() => {
-        const storedCart = localStorage.getItem('cart');
-        return storedCart ? JSON.parse(storedCart) : [];
-    });
-
-    useEffect(() => {
-        localStorage.setItem('cart', JSON.stringify(cartItems));
-    }, [cartItems]);
+    const [cartItems, setCartItems] = useLocalStorage<CartItem[]>('cart', []);
 
     const addItem = (meme: Meme) => {
         setCartItems(prev => {

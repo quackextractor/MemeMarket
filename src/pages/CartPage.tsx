@@ -12,6 +12,7 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { Trash2, Plus, Minus, Info } from 'lucide-react';
+import { ModeToggle } from '@/components/ModeToggle';
 
 const CartPage = () => {
     const { user, logout } = useAuth();
@@ -33,6 +34,7 @@ const CartPage = () => {
                             <Button variant="destructive" onClick={logout}>
                                 Logout
                             </Button>
+                            <ModeToggle />
                         </div>
                     </div>
                 </CardHeader>
