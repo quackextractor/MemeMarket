@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { ModeToggle } from '@/components/ModeToggle';
 
 /**
  * LoginPage Component
@@ -51,7 +52,10 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-4">
+    <div className="flex min-h-screen items-center justify-center p-4 relative">
+      <div className="absolute top-4 right-4">
+        <ModeToggle />
+      </div>
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-center text-2xl font-bold">Meme Market Login</CardTitle>
@@ -61,7 +65,7 @@ const LoginPage = () => {
         </CardHeader>
         <CardContent>
           {error && (
-            <div className="mb-4 rounded bg-destructive/15 p-3 text-sm text-destructive">
+            <div className="mb-4 rounded bg-red-100 text-red-600 dark:bg-red-900/50 dark:text-red-200 p-3 text-sm">
               {error}
             </div>
           )}
