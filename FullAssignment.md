@@ -59,7 +59,7 @@ The application must be built in **React**, using **React Router** and any compo
 
 * Memes come from: [https://api.imgflip.com/get_memes](https://api.imgflip.com/get_memes)
 * API returns: `id`, `name`, `url`, `width`, `height`, `box_count`
-* Student must add:
+* Must add:
 
   * Random rating (1–5)
   * Random category from: `["animals", "celebrities", "gaming", "school", "random"]`
