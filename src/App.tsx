@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from './contexts/AuthContext';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
+import { MemesPage } from './pages/MemesPage';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
 
@@ -30,7 +31,8 @@ function App() {
           */}
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<DashboardPage />} />
-            {/* Add other protected routes here later (e.g., /memes, /cart) */}
+            <Route path="/memes" element={<MemesPage />} />
+            {/* Add other protected routes here later (e.g., /cart) */}
           </Route>
 
           {/* Default Redirect */}

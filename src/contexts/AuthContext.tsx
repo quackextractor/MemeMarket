@@ -29,21 +29,20 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
  * can access the values we pass to the `value` prop without prop drilling.
  */
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-    const [user, setUser] = useState<User | null>(null);
-    const [isLoggingOut, setIsLoggingOut] = useState(false);
-
-    // Check localStorage on mount to persist login state
-    useEffect(() => {
+    const [user, setUser] = useState<User | null>(() => {
         const storedUser = localStorage.getItem('meme_market_user');
         if (storedUser) {
             try {
-                setUser(JSON.parse(storedUser));
+                return JSON.parse(storedUser);
             } catch (error) {
                 console.error("Failed to parse user from local storage", error);
                 localStorage.removeItem('meme_market_user');
+                return null;
             }
         }
-    }, []);
+        return null;
+    });
+    const [isLoggingOut, setIsLoggingOut] = useState(false);
 
     const login = (username: string) => {
         setIsLoggingOut(false);
