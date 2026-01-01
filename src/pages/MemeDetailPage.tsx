@@ -153,7 +153,7 @@ export default function MemeDetailPage() {
             {
                 relatedMemes.length > 0 && (
                     <div className="space-y-6">
-                        <h2 className="text-2xl font-bold">More {meme.category} Memes</h2>
+                        <h2 className="text-2xl font-bold">More '{meme.category}' Memes</h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                             {relatedMemes.map(related => (
                                 <MemeCard key={related.id} meme={related} />
