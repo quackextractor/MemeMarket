@@ -5,12 +5,14 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useMemes } from '../hooks/useMemes';
+import { useCart } from '../hooks/useCart';
 import { MemeCard } from '../components/MemeCard';
 
 const DashboardPage = () => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
     const { memes, loading, error } = useMemes();
+    const { itemCount } = useCart();
 
     const mostPopularMeme = useMemo(() => {
         if (!memes.length) return null;
@@ -24,9 +26,14 @@ const DashboardPage = () => {
                 <CardHeader>
                     <div className="flex items-center justify-between">
                         <CardTitle className="text-3xl font-bold">Dashboard</CardTitle>
-                        <Button variant="destructive" onClick={logout}>
-                            Logout
-                        </Button>
+                        <div className="flex gap-2">
+                            <Button variant="outline" onClick={() => navigate('/cart')}>
+                                Cart ({itemCount})
+                            </Button>
+                            <Button variant="destructive" onClick={logout}>
+                                Logout
+                            </Button>
+                        </div>
                     </div>
                 </CardHeader>
                 <CardContent>
@@ -65,7 +72,15 @@ const DashboardPage = () => {
                                             <div className="text-2xl font-bold">{memes.length}</div>
                                         </CardContent>
                                     </Card>
-                                    {/* Placeholders for other stats */}
+
+                                    <Card onClick={() => navigate('/cart')} className="cursor-pointer hover:bg-gray-50 transition-colors">
+                                        <CardHeader className="pb-2">
+                                            <CardTitle className="text-sm font-medium">Items in Cart</CardTitle>
+                                        </CardHeader>
+                                        <CardContent>
+                                            <div className="text-2xl font-bold">{itemCount}</div>
+                                        </CardContent>
+                                    </Card>
                                     <Card>
                                         <CardHeader className="pb-2">
                                             <CardTitle className="text-sm font-medium">Categories</CardTitle>

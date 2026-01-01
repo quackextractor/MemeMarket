@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { Meme } from '../hooks/useMemes';
+import { useCart } from '../hooks/useCart';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Heart, ShoppingCart } from 'lucide-react';
@@ -10,9 +12,14 @@ interface MemeCardProps {
 
 export function MemeCard({ meme }: MemeCardProps) {
     const navigate = useNavigate();
-    const handleAddToCart = () => {
-        // TODO: Implement cart functionality
-        console.log('Added to cart:', meme.name);
+    const [isAdded, setIsAdded] = useState(false);
+    const { addItem } = useCart();
+
+    const handleAddToCart = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        addItem(meme);
+        setIsAdded(true);
+        setTimeout(() => setIsAdded(false), 2000);
     };
 
     return (
@@ -40,9 +47,19 @@ export function MemeCard({ meme }: MemeCardProps) {
                 <Button variant="outline" className="flex-1" onClick={() => navigate(`/memes/${meme.id}`)}>
                     Details
                 </Button>
-                <Button onClick={handleAddToCart} className="flex-1">
-                    <ShoppingCart className="w-4 h-4 mr-2" />
-                    Add
+                <Button
+                    onClick={handleAddToCart}
+                    className={`flex-1 ${isAdded ? 'bg-green-600 hover:bg-green-700' : ''}`}
+                    disabled={isAdded}
+                >
+                    {isAdded ? (
+                        <>Added!</>
+                    ) : (
+                        <>
+                            <ShoppingCart className="w-4 h-4 mr-2" />
+                            Add
+                        </>
+                    )}
                 </Button>
             </CardFooter>
         </Card>

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useMemes } from '../hooks/useMemes';
 import { Button } from '../components/ui/button';
 import { MemeCard } from '../components/MemeCard';
+import { useCart } from '../hooks/useCart';
 import { Skeleton } from '../components/ui/skeleton';
 import { ArrowLeft, ShoppingCart, Star } from 'lucide-react';
 
@@ -11,6 +12,8 @@ export default function MemeDetailPage() {
     const navigate = useNavigate();
     const { memes, loading: memesLoading, error } = useMemes();
     const [relatedMemes, setRelatedMemes] = useState<typeof memes>([]);
+    const { addItem } = useCart();
+    const [isAdded, setIsAdded] = useState(false);
 
     // Find the current meme
     // Note: In a real app with backend, we would fetch by ID. 
@@ -56,8 +59,9 @@ export default function MemeDetailPage() {
     }
 
     const handleAddToCart = () => {
-        console.log('Added to cart:', meme.name);
-        // Placeholder for cart functionality
+        addItem(meme);
+        setIsAdded(true);
+        setTimeout(() => setIsAdded(false), 2000);
     };
 
     return (
@@ -105,9 +109,20 @@ export default function MemeDetailPage() {
                     </div>
 
                     <div className="flex gap-4">
-                        <Button size="lg" className="w-full md:w-auto" onClick={handleAddToCart}>
-                            <ShoppingCart className="mr-2 h-5 w-5" />
-                            Add to Cart
+                        <Button
+                            size="lg"
+                            className={`w-full md:w-auto ${isAdded ? 'bg-green-600 hover:bg-green-700' : ''}`}
+                            onClick={handleAddToCart}
+                            disabled={isAdded}
+                        >
+                            {isAdded ? (
+                                <>Added!</>
+                            ) : (
+                                <>
+                                    <ShoppingCart className="mr-2 h-5 w-5" />
+                                    Add to Cart
+                                </>
+                            )}
                         </Button>
                     </div>
 

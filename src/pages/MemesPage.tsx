@@ -1,6 +1,8 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMemes, Meme } from '../hooks/useMemes';
+import { useCart } from '../hooks/useCart';
+import { useAuth } from '../hooks/useAuth';
 import { MemeCard } from '../components/MemeCard';
 import { Input } from '../components/ui/input';
 import { Button } from '../components/ui/button';
@@ -93,9 +95,17 @@ export function MemesPage() {
                 <h1 className="text-3xl font-bold text-center md:text-left bg-gradient-to-r from-purple-600 to-pink-600 text-transparent bg-clip-text">
                     Meme Gallery
                 </h1>
-                <Button onClick={() => navigate('/dashboard')} variant="outline">
-                    Dashboard
-                </Button>
+                <div className="flex gap-2">
+                    <Button onClick={() => navigate('/cart')} variant="outline">
+                        Cart ({useCart().itemCount})
+                    </Button>
+                    <Button onClick={() => navigate('/dashboard')} variant="outline">
+                        Dashboard
+                    </Button>
+                    <Button variant="destructive" onClick={useAuth().logout}>
+                        Logout
+                    </Button>
+                </div>
             </div>
 
             {/* Filters */}
