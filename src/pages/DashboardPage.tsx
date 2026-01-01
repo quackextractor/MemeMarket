@@ -53,7 +53,7 @@ const DashboardPage = () => {
                 <CardContent>
                     <div className="space-y-4">
                         <p className="text-lg">
-                            Welcome back, <strong>{user?.username}</strong>!
+                            User <strong>{user?.username}</strong> logged in!
                         </p>
                         <p className="text-muted-foreground">
                             You have successfully logged in.

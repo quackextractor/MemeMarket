@@ -87,7 +87,7 @@ export default function MemeDetailPage() {
 
             <div className="grid md:grid-cols-2 gap-8 mb-16">
                 {/* Image Section */}
-                <div className="flex justify-center bg-black/5 rounded-xl overflow-hidden">
+                <div className="flex justify-center bg-black/5">
                     <img
                         src={meme.url}
                         alt={meme.name}

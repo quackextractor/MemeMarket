@@ -15,7 +15,7 @@ import { Trash2, Plus, Minus, Info } from 'lucide-react';
 import { ModeToggle } from '@/components/ModeToggle';
 
 const CartPage = () => {
-    const { user, logout } = useAuth();
+    const { logout } = useAuth();
     const navigate = useNavigate();
     const { cartItems, removeItem, decreaseCount, addItem, clearCart, getTotalPrice } = useCart();
 

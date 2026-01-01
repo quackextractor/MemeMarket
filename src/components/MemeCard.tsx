@@ -4,8 +4,8 @@ import { Meme } from '../hooks/useMemes';
 import { useCart } from '../hooks/useCart';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
-import { Heart, ShoppingCart } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { ShoppingCart } from 'lucide-react';
+
 
 interface MemeCardProps {
     meme: Meme;
@@ -24,8 +24,8 @@ export function MemeCard({ meme }: MemeCardProps) {
     };
 
     return (
-        <motion.div whileHover={{ scale: 1.02 }} className="h-full">
-            <Card className="flex flex-col h-full overflow-hidden hover:shadow-lg transition-shadow duration-300">
+        <div className="h-full">
+            <Card className="flex flex-col h-full overflow-hidden">
                 <CardHeader className="p-4">
                     <CardTitle className="text-lg truncate" title={meme.name}>
                         {meme.name}
@@ -34,12 +34,11 @@ export function MemeCard({ meme }: MemeCardProps) {
                         {meme.category} • ⭐ {meme.rating}
                     </div>
                 </CardHeader>
-                <CardContent className="p-0 flex-grow relative group">
+                <CardContent className="p-0 flex-grow relative">
                     <img
                         src={meme.url}
                         alt={meme.name}
-                        className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
-                        loading="lazy"
+                        className="w-full h-64 object-cover"
                     />
                     <div className="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">
                         ${meme.price}
@@ -65,6 +64,6 @@ export function MemeCard({ meme }: MemeCardProps) {
                     </Button>
                 </CardFooter>
             </Card>
-        </motion.div>
+        </div>
     );
 }

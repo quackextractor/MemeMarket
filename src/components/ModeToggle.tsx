@@ -5,17 +5,7 @@ import { useTheme } from "@/contexts/ThemeContext"
 export function ModeToggle() {
     const { setTheme, theme } = useTheme()
 
-    const toggleTheme = () => {
-        if (theme === 'dark') {
-            setTheme('light')
-        } else if (theme === 'light') {
-            setTheme('dark')
-        } else {
-            // System
-            const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
-            setTheme(systemTheme === 'dark' ? 'light' : 'dark')
-        }
-    }
+
 
     return (
         <Button variant="outline" size="icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>

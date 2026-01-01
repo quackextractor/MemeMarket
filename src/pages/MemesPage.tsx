@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMemes, Meme } from '../hooks/useMemes';
+import { useMemes } from '../hooks/useMemes';
 import { useCart } from '../hooks/useCart';
 import { useAuth } from '../hooks/useAuth';
 import { MemeCard } from '../components/MemeCard';
@@ -8,7 +8,6 @@ import { Input } from '../components/ui/input';
 import { Button } from '../components/ui/button';
 import { Skeleton } from '../components/ui/skeleton';
 import { Loader2, Search } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { ModeToggle } from '@/components/ModeToggle';
 
 const CATEGORIES = ["All", "animals", "celebrities", "gaming", "school", "random"];
@@ -49,7 +48,6 @@ export function MemesPage() {
         result.sort((a, b) => {
             switch (sortBy) {
                 case 'name-asc': return a.name.localeCompare(b.name);
-                case 'rating-desc': return b.rating - a.rating;
                 case 'rating-desc': return b.rating - a.rating;
                 case 'price-asc': return a.price - b.price;
                 case 'size-asc': return (a.width * a.height) - (b.width * b.height);
@@ -170,19 +168,11 @@ export function MemesPage() {
                 <div className="text-center py-12 text-muted-foreground">No memes found matching your criteria.</div>
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    <AnimatePresence>
-                        {visibleMemes.map((meme, index) => (
-                            <motion.div
-                                key={meme.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, scale: 0.9 }}
-                                transition={{ duration: 0.3, delay: index * 0.05 }}
-                            >
-                                <MemeCard meme={meme} />
-                            </motion.div>
-                        ))}
-                    </AnimatePresence>
+                    {visibleMemes.map((meme) => (
+                        <div key={meme.id}>
+                            <MemeCard meme={meme} />
+                        </div>
+                    ))}
                 </div>
             )}
 
