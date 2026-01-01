@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { CartProvider } from './contexts/CartContext';
 import { AuthProvider } from './contexts/AuthContext';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
@@ -18,34 +17,31 @@ import './App.css';
 function App() {
   return (
     <AuthProvider>
-      <CartProvider>
-        <Router>
-          <Routes>
-            {/* Public Route */}
-            <Route path="/login" element={<LoginPage />} />
+      <Router>
+        <Routes>
+          {/* Public Route */}
+          <Route path="/login" element={<LoginPage />} />
 
-            {/* Protected Routes */}
-            {/* 
+          {/* Protected Routes */}
+          {/* 
             Educational Note:
             We wrap protected routes inside the PrivateRoute component.
             If the user is not authenticated, PrivateRoute will redirect them to /login.
           */}
-            <Route element={<PrivateRoute />}>
-              <Route path="/dashboard" element={<DashboardPage />} />
-              {/* Add other protected routes here later (e.g., /memes, /cart) */}
-            </Route>
+          <Route element={<PrivateRoute />}>
+            <Route path="/dashboard" element={<DashboardPage />} />
+            {/* Add other protected routes here later (e.g., /memes, /cart) */}
+          </Route>
 
-            {/* Default Redirect */}
-            {/* Redirect root URL to dashboard (which will then redirect to login if needed) */}
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          {/* Default Redirect */}
+          {/* Redirect root URL to dashboard (which will then redirect to login if needed) */}
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
-            {/* Catch-all for 404 - For now redirect to dashboard */}
-            <Route path="*" element={<Navigate to="/dashboard" replace />} />
-
-          </Routes>
-        </Router>
-      </CartProvider>
-    </AuthProvider >
+          {/* Catch-all for 404 - For now redirect to dashboard */}
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
