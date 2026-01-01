@@ -3,6 +3,7 @@ import { useMemes, Meme } from '../hooks/useMemes';
 import { MemeCard } from '../components/MemeCard';
 import { Input } from '../components/ui/input';
 import { Button } from '../components/ui/button';
+import { Skeleton } from '../components/ui/skeleton';
 import { Loader2, Search } from 'lucide-react';
 
 const CATEGORIES = ["All", "animals", "celebrities", "gaming", "school", "random"];
@@ -79,14 +80,6 @@ export function MemesPage() {
         setPage(1);
     }, [searchQuery, selectedCategory, sortBy]);
 
-    if (loading) {
-        return (
-            <div className="flex h-[50vh] w-full items-center justify-center">
-                <Loader2 className="h-8 w-8 animate-spin" />
-            </div>
-        );
-    }
-
     if (error) {
         return <div className="text-center text-red-500 p-8">Error loading memes: {error.message}</div>;
     }
@@ -134,7 +127,19 @@ export function MemesPage() {
             </div>
 
             {/* Grid */}
-            {filteredMemes.length === 0 ? (
+            {loading ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    {Array.from({ length: 8 }).map((_, i) => (
+                        <div key={i} className="flex flex-col space-y-3">
+                            <Skeleton className="h-[300px] w-full rounded-xl" />
+                            <div className="space-y-2">
+                                <Skeleton className="h-4 w-[250px]" />
+                                <Skeleton className="h-4 w-[200px]" />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            ) : filteredMemes.length === 0 ? (
                 <div className="text-center py-12 text-muted-foreground">No memes found matching your criteria.</div>
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
