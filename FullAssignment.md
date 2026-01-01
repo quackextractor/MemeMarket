@@ -177,7 +177,7 @@ The application must be built in **React**, using **React Router** and any compo
 
 ---
 
-## Bonus (Optional)
+## Additional Features: Not optional
 
 * Light/Dark mode toggle (store in localStorage)
 * Infinite scroll for memes
