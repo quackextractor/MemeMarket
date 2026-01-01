@@ -5,7 +5,7 @@ import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
-// TODO: The /memes route currently redirects to /dashboard because it has not been implemented yet. This will be addressed in future tasks.
+
 /**
  * App Component
  * The root component of the application.
