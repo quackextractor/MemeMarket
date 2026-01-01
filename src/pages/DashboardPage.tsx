@@ -87,7 +87,7 @@ const DashboardPage = () => {
                                         </CardContent>
                                     </Card>
 
-                                    <Card onClick={() => navigate('/cart')} className="cursor-pointer hover:bg-gray-50 transition-colors">
+                                    <Card>
                                         <CardHeader className="pb-2">
                                             <CardTitle className="text-sm font-medium">Items in Cart</CardTitle>
                                         </CardHeader>
@@ -105,16 +105,7 @@ const DashboardPage = () => {
                                             </div>
                                         </CardContent>
                                     </Card>
-                                    <Card>
-                                        <CardHeader className="pb-2">
-                                            <CardTitle className="text-sm font-medium">Top Rated</CardTitle>
-                                        </CardHeader>
-                                        <CardContent>
-                                            <div className="text-2xl font-bold">
-                                                {memes.filter(m => m.rating === 5).length}
-                                            </div>
-                                        </CardContent>
-                                    </Card>
+
                                 </div>
                             )}
 
