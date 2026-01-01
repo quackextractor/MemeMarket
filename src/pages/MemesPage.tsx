@@ -33,12 +33,25 @@ export function MemesPage() {
     const ITEMS_PER_PAGE = 12;
     const observerTarget = useRef<HTMLDivElement>(null);
 
+    const [debouncedQuery, setDebouncedQuery] = useState('');
+
+    // Debounce Search
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedQuery(searchQuery);
+        }, 300);
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [searchQuery]);
+
     // Filter and Sort
     const filteredMemes = useMemo(() => {
         let result = [...memes];
 
-        if (searchQuery) {
-            result = result.filter(m => m.name.toLowerCase().includes(searchQuery.toLowerCase()));
+        if (debouncedQuery) {
+            result = result.filter(m => m.name.toLowerCase().includes(debouncedQuery.toLowerCase()));
         }
 
         if (selectedCategory !== 'All') {
@@ -57,7 +70,7 @@ export function MemesPage() {
         });
 
         return result;
-    }, [memes, searchQuery, selectedCategory, sortBy]);
+    }, [memes, debouncedQuery, selectedCategory, sortBy]);
 
     // Pagination
     const visibleMemes = useMemo(() => {

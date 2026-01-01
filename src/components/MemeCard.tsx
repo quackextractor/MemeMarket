@@ -38,6 +38,7 @@ export function MemeCard({ meme }: MemeCardProps) {
                     <img
                         src={meme.url}
                         alt={meme.name}
+                        loading="lazy"
                         className="w-full h-64 object-cover"
                     />
                     <div className="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">
