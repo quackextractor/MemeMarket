@@ -134,7 +134,7 @@ const DashboardPage = () => {
 
                         <div className="pt-4 flex justify-center">
                             <Button onClick={() => navigate('/memes')} size="lg" className="w-full sm:w-64 text-lg">
-                                Go to Memes
+                                I want to see memes!
                             </Button>
                         </div>
                     </div>
