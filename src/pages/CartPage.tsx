@@ -132,9 +132,9 @@ const CartPage = () => {
                                         <Button variant="outline" onClick={clearCart}>
                                             Clear Cart
                                         </Button>
-                                        <Button className="px-8">
-                                            Checkout
-                                        </Button>
+                                        {/*<Button className="px-8">*/}
+                                        {/*    Checkout*/}
+                                        {/*</Button>*/}
                                     </div>
                                 </div>
                             </>
