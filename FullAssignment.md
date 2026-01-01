@@ -177,11 +177,11 @@ The application must be built in **React**, using **React Router** and any compo
 
 ---
 
-## Additional Features: Not optional
+## Additional Features:
 
 * Light/Dark mode toggle (store in localStorage)
 * Infinite scroll for memes
 * Random “Meme of the Day” on dashboard
 * Animations (Framer Motion)
 * Lazy loading images
-* Form validation via Zod
+* Form validation via Zod (optional, not recommended)
