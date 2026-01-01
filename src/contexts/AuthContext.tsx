@@ -1,7 +1,6 @@
 import { createContext, useState, ReactNode } from 'react';
 
 // Define the shape of the user object
-// In a real app, this might include token, email, roles, etc.
 interface User {
     username: string;
     loggedIn: boolean;
@@ -17,16 +16,11 @@ interface AuthContextType {
 }
 
 // Create the context with a default value of undefined
-// This helps us detect if the hook is used outside the provider
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 /**
  * AuthProvider component
  * Wraps the application and provides authentication state to all children.
- * 
- * Educational Note:
- * Context is like a global state container. Any component inside this Provider
- * can access the values we pass to the `value` prop without prop drilling.
  */
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<User | null>(() => {

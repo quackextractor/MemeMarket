@@ -15,15 +15,11 @@ export default function MemeDetailPage() {
     const [relatedMemes, setRelatedMemes] = useState<typeof memes>([]);
     const { addItem } = useCart();
     const [isAdded, setIsAdded] = useState(false);
-
-    // Find the current meme
-    // Note: In a real app with backend, we would fetch by ID. 
-    // Here we rely on the list having all items or refetching the list.
+    
     const meme = memes.find(m => m.id === id);
 
     useEffect(() => {
         if (meme) {
-            // Find related memes (same category, excluding current)
             const related = memes
                 .filter(m => m.category === meme.category && m.id !== meme.id)
                 .sort(() => 0.5 - Math.random()) // Randomize

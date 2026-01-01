@@ -42,7 +42,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     const decreaseCount = (id: string) => {
         setCartItems(prev => {
             const existingItem = prev.find(item => item.id === id);
-            if (existingItem!.quantity > 1) { // We know it exists if we are calling this
+            if (existingItem!.quantity > 1) {
                 return prev.map(item =>
                     item.id === id
                         ? { ...item, quantity: item.quantity - 1 }

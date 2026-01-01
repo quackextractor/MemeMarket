@@ -44,9 +44,8 @@ const LoginPage = () => {
     // If validation passes
     setError('');
     login(username);
-
-    // Redirect to dashboard
-    // Educational Note: `replace: true` prevents the user from going back to login page
+    
+    // `replace: true` prevents the user from going back to login page
     // by clicking the browser's back button immediately after logging in.
     navigate('/dashboard', { replace: true });
   };

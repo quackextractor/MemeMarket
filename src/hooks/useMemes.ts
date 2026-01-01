@@ -11,7 +11,7 @@ export interface Meme {
     // Augmented fields
     rating: number;
     category: string;
-    price: number; // Derived from rating * 25 as per assignment
+    price: number; // rating * 25 as per assignment
 }
 
 interface ImgflipResponse {
@@ -36,7 +36,6 @@ export function useMemes() {
                 let metadata = storedMetadata[meme.id];
 
                 if (!metadata) {
-                    // Generate new random data if not exists
                     metadata = {
                         rating: Math.floor(Math.random() * 5) + 1,
                         category: CATEGORIES[Math.floor(Math.random() * CATEGORIES.length)],

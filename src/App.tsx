@@ -11,15 +11,6 @@ import CartPage from './pages/CartPage';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
 
-/**
- * App Component
- * The root component of the application.
- * 
- * Educational Note:
- * We wrap the entire application in `AuthProvider` so that any component
- * can access the authentication state.
- * We use `BrowserRouter` (aliased as Router) to enable client-side routing.
- */
 function App() {
   return (
     <ThemeProvider defaultTheme="light" storageKey="meme-market-theme">
