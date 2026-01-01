@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { Meme } from '../hooks/useMemes';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
@@ -8,6 +9,7 @@ interface MemeCardProps {
 }
 
 export function MemeCard({ meme }: MemeCardProps) {
+    const navigate = useNavigate();
     const handleAddToCart = () => {
         // TODO: Implement cart functionality
         console.log('Added to cart:', meme.name);
@@ -35,7 +37,7 @@ export function MemeCard({ meme }: MemeCardProps) {
                 </div>
             </CardContent>
             <CardFooter className="p-4 flex gap-2">
-                <Button variant="outline" className="flex-1" onClick={() => window.location.href = `/memes/${meme.id}`}>
+                <Button variant="outline" className="flex-1" onClick={() => navigate(`/memes/${meme.id}`)}>
                     Details
                 </Button>
                 <Button onClick={handleAddToCart} className="flex-1">

@@ -3,6 +3,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import { MemesPage } from './pages/MemesPage';
+import MemeDetailPage from './pages/MemeDetailPage';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
 
@@ -32,6 +33,7 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/memes" element={<MemesPage />} />
+            <Route path="/memes/:id" element={<MemeDetailPage />} />
             {/* Add other protected routes here later (e.g., /cart) */}
           </Route>
 
