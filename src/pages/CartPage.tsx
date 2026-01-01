@@ -42,7 +42,7 @@ const CartPage = () => {
                     <div className="space-y-6">
                         {cartItems.length === 0 ? (
                             <div className="text-center py-10">
-                                <p className="text-xl text-muted-foreground mb-4">Your cart is empty.</p>
+                                <p className="text-xl text-muted-foreground mb-4">Cart is empty :(</p>
                                 <Button onClick={() => navigate('/memes')}>Browse Memes</Button>
                             </div>
                         ) : (
