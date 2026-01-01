@@ -52,11 +52,11 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-4 relative">
-      <div className="absolute top-4 right-4">
-        <ModeToggle />
-      </div>
-      <Card className="w-full max-w-md">
+    <div className="flex min-h-screen items-center justify-center p-4">
+      <Card className="w-full max-w-md relative">
+        <div className="absolute right-4 top-4">
+          <ModeToggle />
+        </div>
         <CardHeader>
           <CardTitle className="text-center text-2xl font-bold">Meme Market Login</CardTitle>
           <CardDescription className="text-center">

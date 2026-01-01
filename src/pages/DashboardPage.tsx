@@ -40,6 +40,9 @@ const DashboardPage = () => {
                     <div className="flex items-center justify-between">
                         <CardTitle className="text-3xl font-bold">Dashboard</CardTitle>
                         <div className="flex gap-2">
+                            <Button variant="outline" onClick={() => navigate('/memes')}>
+                                Gallery
+                            </Button>
                             <Button variant="outline" onClick={() => navigate('/cart')}>
                                 Cart ({itemCount})
                             </Button>
@@ -129,8 +132,8 @@ const DashboardPage = () => {
                             )}
                         </div>
 
-                        <div className="pt-4">
-                            <Button onClick={() => navigate('/memes')} className="w-full sm:w-auto">
+                        <div className="pt-4 flex justify-center">
+                            <Button onClick={() => navigate('/memes')} size="lg" className="w-full sm:w-64 text-lg">
                                 Go to Memes
                             </Button>
                         </div>
