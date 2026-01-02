@@ -9,6 +9,8 @@ import { useCart } from '../hooks/useCart';
 import { MemeCard } from '../components/MemeCard';
 import { ModeToggle } from '@/components/ModeToggle';
 
+import { ErrorState } from '@/components/ErrorState';
+
 const DashboardPage = () => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
@@ -74,9 +76,7 @@ const DashboardPage = () => {
                             )}
 
                             {error && (
-                                <div className="text-red-500 p-4 border border-red-200 rounded-md bg-red-50">
-                                    Failed to load memes
-                                </div>
+                                <ErrorState message="Failed to load memes" onRetry={() => window.location.reload()} />
                             )}
 
                             {!loading && !error && (

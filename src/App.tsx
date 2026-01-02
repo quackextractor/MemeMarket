@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
+import { MemeProvider } from './contexts/MemeContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
@@ -15,34 +16,36 @@ function App() {
   return (
     <ThemeProvider defaultTheme="light" storageKey="meme-market-theme">
       <AuthProvider>
-        <CartProvider>
-          <Router>
-            <Routes>
-              {/* Public Route */}
-              <Route path="/login" element={<LoginPage />} />
+        <MemeProvider>
+          <CartProvider>
+            <Router>
+              <Routes>
+                {/* Public Route */}
+                <Route path="/login" element={<LoginPage />} />
 
-              {/* Protected Routes */}
-              {/* 
-                Educational Note:
-                We wrap protected routes inside the PrivateRoute component.
-                If the user is not authenticated, PrivateRoute will redirect them to /login.
-              */}
-              <Route element={<PrivateRoute />}>
-                <Route path="/dashboard" element={<DashboardPage />} />
-                <Route path="/memes" element={<MemesPage />} />
-                <Route path="/memes/:id" element={<MemeDetailPage />} />
-                <Route path="/cart" element={<CartPage />} />
-              </Route>
+                {/* Protected Routes */}
+                {/* 
+                  Educational Note:
+                  We wrap protected routes inside the PrivateRoute component.
+                  If the user is not authenticated, PrivateRoute will redirect them to /login.
+                */}
+                <Route element={<PrivateRoute />}>
+                  <Route path="/dashboard" element={<DashboardPage />} />
+                  <Route path="/memes" element={<MemesPage />} />
+                  <Route path="/memes/:id" element={<MemeDetailPage />} />
+                  <Route path="/cart" element={<CartPage />} />
+                </Route>
 
-              {/* Default Redirect */}
-              {/* Redirect root URL to dashboard (which will then redirect to login if needed) */}
-              <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                {/* Default Redirect */}
+                {/* Redirect root URL to dashboard (which will then redirect to login if needed) */}
+                <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
-              {/* Catch-all for 404 */}
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </Router>
-        </CartProvider>
+                {/* Catch-all for 404 */}
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </Router>
+          </CartProvider>
+        </MemeProvider>
       </AuthProvider>
     </ThemeProvider>
   );

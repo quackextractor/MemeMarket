@@ -8,6 +8,8 @@ import { Skeleton } from '../components/ui/skeleton';
 import { ArrowLeft, ShoppingCart, Star } from 'lucide-react';
 import { ModeToggle } from '@/components/ModeToggle';
 
+import { ErrorState } from '@/components/ErrorState';
+
 export default function MemeDetailPage() {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
@@ -15,7 +17,7 @@ export default function MemeDetailPage() {
     const [relatedMemes, setRelatedMemes] = useState<typeof memes>([]);
     const { addItem } = useCart();
     const [isAdded, setIsAdded] = useState(false);
-    
+
     const meme = memes.find(m => m.id === id);
 
     useEffect(() => {
@@ -30,9 +32,8 @@ export default function MemeDetailPage() {
 
     if (error) {
         return (
-            <div className="container mx-auto px-4 py-8 text-center">
-                <p className="text-red-500 mb-4">Error loading meme: {error.message}</p>
-                <Button onClick={() => navigate('/memes')}>Back to Gallery</Button>
+            <div className="container mx-auto px-4 py-8">
+                <ErrorState message={`Error loading meme: ${error.message}`} showHomeButton />
             </div>
         );
     }

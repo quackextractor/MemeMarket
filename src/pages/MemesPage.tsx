@@ -1,89 +1,43 @@
-import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMemes } from '../hooks/useMemes';
 import { useCart } from '../hooks/useCart';
 import { useAuth } from '../hooks/useAuth';
+import { useMemeFilters } from '../hooks/useMemeFilters';
 import { MemeCard } from '../components/MemeCard';
 import { Input } from '../components/ui/input';
 import { Button } from '../components/ui/button';
 import { Skeleton } from '../components/ui/skeleton';
 import { Loader2, Search } from 'lucide-react';
 import { ModeToggle } from '@/components/ModeToggle';
-
-const CATEGORIES = ["All", "animals", "celebrities", "gaming", "school", "random"];
-const SORT_OPTIONS = [
-    { label: "Name (A-Z)", value: "name-asc" },
-    { label: "Rating (High-Low)", value: "rating-desc" },
-    { label: "Rating (High-Low)", value: "rating-desc" },
-    { label: "Price (Low-High)", value: "price-asc" },
-    { label: "Image Size (Small-Large)", value: "size-asc" },
-    { label: "Image Size (Large-Small)", value: "size-desc" },
-];
+import { ErrorState } from '@/components/ErrorState';
+import { CATEGORIES, SORT_OPTIONS } from '@/constants';
 
 export function MemesPage() {
     const { memes, loading, error } = useMemes();
-    const [searchQuery, setSearchQuery] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState('All');
-    const [sortBy, setSortBy] = useState('name-asc');
-
     const navigate = useNavigate();
+    const {
+        searchQuery,
+        setSearchQuery,
+        selectedCategory,
+        setSelectedCategory,
+        sortBy,
+        setSortBy,
+        visibleMemes,
+        filteredMemesCount,
+        loadMore,
+        hasMore
+    } = useMemeFilters({ memes });
 
-    // Infinite Scroll State
-    const [page, setPage] = useState(1);
-    const ITEMS_PER_PAGE = 12;
     const observerTarget = useRef<HTMLDivElement>(null);
-
-    const [debouncedQuery, setDebouncedQuery] = useState('');
-
-    // Debounce Search
-    useEffect(() => {
-        const handler = setTimeout(() => {
-            setDebouncedQuery(searchQuery);
-        }, 300);
-
-        return () => {
-            clearTimeout(handler);
-        };
-    }, [searchQuery]);
-
-    // Filter and Sort
-    const filteredMemes = useMemo(() => {
-        let result = [...memes];
-
-        if (debouncedQuery) {
-            result = result.filter(m => m.name.toLowerCase().includes(debouncedQuery.toLowerCase()));
-        }
-
-        if (selectedCategory !== 'All') {
-            result = result.filter(m => m.category === selectedCategory);
-        }
-
-        result.sort((a, b) => {
-            switch (sortBy) {
-                case 'name-asc': return a.name.localeCompare(b.name);
-                case 'rating-desc': return b.rating - a.rating;
-                case 'price-asc': return a.price - b.price;
-                case 'size-asc': return (a.width * a.height) - (b.width * b.height);
-                case 'size-desc': return (b.width * b.height) - (a.width * a.height);
-                default: return 0;
-            }
-        });
-
-        return result;
-    }, [memes, debouncedQuery, selectedCategory, sortBy]);
-
-    // Pagination
-    const visibleMemes = useMemo(() => {
-        return filteredMemes.slice(0, page * ITEMS_PER_PAGE);
-    }, [filteredMemes, page]);
 
     // Infinite Scroll Observer
     const handleObserver = useCallback((entries: IntersectionObserverEntry[]) => {
         const [target] = entries;
-        if (target.isIntersecting && visibleMemes.length < filteredMemes.length) {
-            setPage((prev) => prev + 1);
+        if (target.isIntersecting && hasMore) {
+            loadMore();
         }
-    }, [visibleMemes.length, filteredMemes.length]);
+    }, [hasMore, loadMore]);
 
     useEffect(() => {
         const observer = new IntersectionObserver(handleObserver, {
@@ -99,13 +53,8 @@ export function MemesPage() {
         return () => observer.disconnect();
     }, [handleObserver]);
 
-    // Reset page when filters change
-    useEffect(() => {
-        setPage(1);
-    }, [searchQuery, selectedCategory, sortBy]);
-
     if (error) {
-        return <div className="text-center text-red-500 p-8">Error loading memes: {error.message}</div>;
+        return <ErrorState message={error.message} onRetry={() => window.location.reload()} />;
     }
 
     return (
@@ -177,7 +126,7 @@ export function MemesPage() {
                         </div>
                     ))}
                 </div>
-            ) : filteredMemes.length === 0 ? (
+            ) : filteredMemesCount === 0 ? (
                 <div className="text-center py-12 text-muted-foreground">No memes found matching your criteria.</div>
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -191,7 +140,7 @@ export function MemesPage() {
 
             {/* Infinite Scroll Sensor */}
             <div ref={observerTarget} className="h-10 w-full flex justify-center p-4">
-                {visibleMemes.length < filteredMemes.length && (
+                {hasMore && (
                     <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
                 )}
             </div>
