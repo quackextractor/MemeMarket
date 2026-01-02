@@ -2,7 +2,7 @@
 
 Modern React app for browsing, searching, and "buying" memes.
 
-> This app was created as a final assignment for a school project.
+> This app was created as a final assignment for a school project. See [FullAssignment.md](./FullAssignment.md)
 
 ## Tech Stack
 
