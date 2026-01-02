@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Skeleton } from './ui/skeleton';
 
@@ -10,10 +10,21 @@ interface BlurImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 export function BlurImage({ src, alt, className, ...props }: BlurImageProps) {
     const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const img = new Image();
         img.src = src;
-        img.onload = () => setIsLoading(false);
+
+        if (img.complete) {
+            setIsLoading(false);
+            return;
+        }
+
+        const handleLoad = () => setIsLoading(false);
+        img.onload = handleLoad;
+
+        return () => {
+            img.onload = null;
+        };
     }, [src]);
 
     return (
