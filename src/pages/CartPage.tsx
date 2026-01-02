@@ -81,17 +81,19 @@ const CartPage = () => {
                                                                 size="icon"
                                                                 className="h-8 w-8"
                                                                 onClick={() => decreaseCount(item.id)}
+                                                                aria-label={`Decrease quantity of ${item.name}`}
                                                             >
-                                                                <Minus className="h-4 w-4" />
+                                                                <Minus className="h-4 w-4" aria-hidden="true" />
                                                             </Button>
-                                                            <span className="w-4 text-center">{item.quantity}</span>
+                                                            <span className="w-4 text-center" aria-label={`Quantity: ${item.quantity}`}>{item.quantity}</span>
                                                             <Button
                                                                 variant="outline"
                                                                 size="icon"
                                                                 className="h-8 w-8"
                                                                 onClick={() => addItem(item)}
+                                                                aria-label={`Increase quantity of ${item.name}`}
                                                             >
-                                                                <Plus className="h-4 w-4" />
+                                                                <Plus className="h-4 w-4" aria-hidden="true" />
                                                             </Button>
                                                         </div>
                                                     </TableCell>
@@ -105,16 +107,18 @@ const CartPage = () => {
                                                                 size="icon"
                                                                 onClick={() => navigate(`/memes/${item.id}`)}
                                                                 title="View Details"
+                                                                aria-label={`View details for ${item.name}`}
                                                             >
-                                                                <Info className="h-4 w-4" />
+                                                                <Info className="h-4 w-4" aria-hidden="true" />
                                                             </Button>
                                                             <Button
                                                                 variant="ghost"
                                                                 size="icon"
                                                                 onClick={() => removeItem(item.id)}
                                                                 className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                                                                aria-label={`Remove ${item.name} from cart`}
                                                             >
-                                                                <Trash2 className="h-4 w-4" />
+                                                                <Trash2 className="h-4 w-4" aria-hidden="true" />
                                                             </Button>
                                                         </div>
                                                     </TableCell>

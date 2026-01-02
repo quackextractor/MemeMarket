@@ -51,14 +51,15 @@ export function MemeCard({ meme }: MemeCardProps) {
                     </Button>
                     <Button
                         onClick={handleAddToCart}
-                        className={`flex-1 ${isAdded ? 'bg-green-600 hover:bg-green-700' : ''}`}
+                        className={`flex-1 ${isAdded ? 'bg-green-700 hover:bg-green-800 text-white disabled:opacity-100' : ''}`}
                         disabled={isAdded}
+                        aria-label={isAdded ? "Added to cart" : `Add ${meme.name} to cart`}
                     >
                         {isAdded ? (
                             <>Added!</>
                         ) : (
                             <>
-                                <ShoppingCart className="w-4 h-4 mr-2" />
+                                <ShoppingCart className="w-4 h-4 mr-2" aria-hidden="true" />
                                 Add
                             </>
                         )}

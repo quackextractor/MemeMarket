@@ -80,22 +80,24 @@ export function MemesPage() {
             {/* Filters */}
             <div className="flex flex-col md:flex-row gap-4 mb-8 justify-between items-center bg-card p-4 rounded-lg shadow-sm border">
                 <div className="relative w-full md:w-1/3">
-                    <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                    <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" aria-hidden="true" />
                     <Input
                         placeholder="Search memes..."
                         className="pl-8"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
+                        aria-label="Search memes by name"
                     />
                 </div>
 
-                <div className="flex gap-2 flex-wrap w-full md:w-auto pb-2 md:pb-0">
+                <div className="flex gap-2 flex-wrap w-full md:w-auto pb-2 md:pb-0" role="group" aria-label="Filter by category">
                     {CATEGORIES.map(cat => (
                         <Button
                             key={cat}
                             variant={selectedCategory === cat ? "default" : "outline"}
                             onClick={() => setSelectedCategory(cat)}
                             className="whitespace-nowrap"
+                            aria-pressed={selectedCategory === cat}
                         >
                             {cat}
                         </Button>
@@ -106,6 +108,7 @@ export function MemesPage() {
                     className="border rounded px-3 py-2 bg-background"
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
+                    aria-label="Sort memes by"
                 >
                     {SORT_OPTIONS.map(opt => (
                         <option key={opt.value} value={opt.value}>{opt.label}</option>

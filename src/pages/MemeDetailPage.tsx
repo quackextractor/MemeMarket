@@ -119,15 +119,16 @@ export default function MemeDetailPage() {
                     <div className="flex gap-4">
                         <Button
                             size="lg"
-                            className={`w-full md:w-auto ${isAdded ? 'bg-green-600 hover:bg-green-700' : ''}`}
+                            className={`w-full md:w-auto ${isAdded ? 'bg-green-700 hover:bg-green-800 text-white disabled:opacity-100' : ''}`}
                             onClick={handleAddToCart}
                             disabled={isAdded}
+                            aria-label={isAdded ? "Meme added to cart" : "Add this meme to cart"}
                         >
                             {isAdded ? (
                                 <>Added!</>
                             ) : (
                                 <>
-                                    <ShoppingCart className="mr-2 h-5 w-5" />
+                                    <ShoppingCart className="mr-2 h-5 w-5" aria-hidden="true" />
                                     Add to Cart
                                 </>
                             )}

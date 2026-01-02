@@ -42,13 +42,13 @@ const DashboardPage = () => {
                     <div className="flex items-center justify-between">
                         <CardTitle className="text-3xl font-bold">Dashboard</CardTitle>
                         <div className="flex gap-2">
-                            <Button variant="outline" onClick={() => navigate('/memes')}>
+                            <Button variant="outline" onClick={() => navigate('/memes')} aria-label="Go to meme gallery">
                                 Gallery
                             </Button>
-                            <Button variant="outline" onClick={() => navigate('/cart')}>
+                            <Button variant="outline" onClick={() => navigate('/cart')} aria-label={`View cart with ${itemCount} items`}>
                                 Cart ({itemCount})
                             </Button>
-                            <Button variant="destructive" onClick={logout}>
+                            <Button variant="destructive" onClick={logout} aria-label="Log out of MemesPro">
                                 Logout
                             </Button>
                             <ModeToggle />
