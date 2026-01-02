@@ -89,7 +89,7 @@ export function MemesPage() {
                     />
                 </div>
 
-                <div className="flex gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
+                <div className="flex gap-2 flex-wrap w-full md:w-auto pb-2 md:pb-0">
                     {CATEGORIES.map(cat => (
                         <Button
                             key={cat}
