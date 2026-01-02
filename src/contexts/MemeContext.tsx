@@ -32,7 +32,7 @@ const MemeContext = createContext<MemeContextType | undefined>(undefined);
 const CATEGORY_OPTIONS = ["animals", "celebrities", "gaming", "school", "random"];
 
 export function MemeProvider({ children }: { children: ReactNode }) {
-    const { data: rawData, loading, error } = useFetch<ImgflipResponse>('https://api.imgflip.com/get_memes');
+    const { data: rawData, loading, error } = useFetch<ImgflipResponse>(import.meta.env.VITE_API_URL || 'https://api.imgflip.com/get_memes');
     const [memes, setMemes] = useState<Meme[]>([]);
 
     useEffect(() => {

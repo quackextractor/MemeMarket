@@ -10,6 +10,8 @@ import { ModeToggle } from '@/components/ModeToggle';
 
 import { ErrorState } from '@/components/ErrorState';
 
+import { BlurImage } from '../components/BlurImage';
+
 export default function MemeDetailPage() {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
@@ -84,11 +86,11 @@ export default function MemeDetailPage() {
 
             <div className="grid md:grid-cols-2 gap-8 mb-16">
                 {/* Image Section */}
-                <div className="flex justify-center bg-muted/50">
-                    <img
+                <div className="flex justify-center bg-muted/50 rounded-lg overflow-hidden">
+                    <BlurImage
                         src={meme.url}
                         alt={meme.name}
-                        className="max-h-[600px] w-auto object-contain"
+                        className="max-h-[600px] w-auto"
                     />
                 </div>
 
