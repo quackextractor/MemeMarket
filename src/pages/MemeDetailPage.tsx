@@ -12,6 +12,8 @@ import { ErrorState } from '@/components/ErrorState';
 
 import { BlurImage } from '../components/BlurImage';
 
+import NotFoundPage from './NotFoundPage';
+
 export default function MemeDetailPage() {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
@@ -38,6 +40,10 @@ export default function MemeDetailPage() {
                 <ErrorState message={`Error loading meme: ${error.message}`} showHomeButton />
             </div>
         );
+    }
+
+    if (!memesLoading && !meme) {
+        return <NotFoundPage />;
     }
 
     if (memesLoading || !meme) {
