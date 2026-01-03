@@ -25,14 +25,28 @@ const DashboardPage = () => {
 
     const memeOfTheDay = useMemo(() => {
         if (!memes.length) return null;
-        // Deterministic random based on date
+
         const today = new Date().toDateString();
-        let hash = 0;
-        for (let i = 0; i < today.length; i++) {
-            hash = today.charCodeAt(i) + ((hash << 5) - hash);
-        }
-        const index = Math.abs(hash) % memes.length;
-        return memes[index];
+        let selectedMeme = null;
+        let maxHash = -Infinity;
+
+        // Deterministic selection based on Date + Meme ID
+        // This ensures the same meme is selected for a given day regardless of array order
+        memes.forEach(meme => {
+            const str = today + meme.id;
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                hash = ((hash << 5) - hash) + str.charCodeAt(i);
+                hash |= 0; // Convert to 32bit integer
+            }
+
+            if (hash > maxHash) {
+                maxHash = hash;
+                selectedMeme = meme;
+            }
+        });
+
+        return selectedMeme;
     }, [memes]);
 
     return (
